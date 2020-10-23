@@ -1,5 +1,4 @@
 #!/usr/bin/python3
-#LED_MATRIX Python3
 
 from sense_hat import SenseHat
 from time import sleep
