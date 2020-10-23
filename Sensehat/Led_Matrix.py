@@ -1,5 +1,9 @@
 #!/usr/bin/python3
 
+# Takes one commandline argument
+# Display Random colors at Random positions
+# Runs forever
+
 from sense_hat import SenseHat
 from time import sleep
 import random as rand
