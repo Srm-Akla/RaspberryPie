@@ -1,4 +1,6 @@
  #!/usr/bin/python3
+ 
+ # Finding Values from sensor and Writes to a JSON file.
 
 from sense_hat import SenseHat
 import json
