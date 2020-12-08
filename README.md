@@ -1,6 +1,10 @@
 # RaspberryPie
 Raspberry Pie Projects
 
+## Installation
+
+    git clone https://github.com/Srm-Akla/RaspberryPie
+
 ## SenseHat
 Simple Scripts for senseHat.
 
@@ -13,3 +17,8 @@ Simple Scripts for senseHat.
     python3 Sensor.py
     
     python3 Pong.py
+
+
+## Mqtt
+Subscriber and Publisher scripts that send raspberrypie sensor data through localhost. 
+

@@ -1,39 +1,29 @@
 import paho.mqtt.client as paho
 import json
-from sense_hat import SenseHat
+import argparse
+import ssl
 
-sense = SenseHat()
-humidity = sense.get_humidity()
-pressure = sense.get_pressure()
-temperature = sense.get_temperature()
+parser = argparse.ArgumentParser(description='Process some integers.')
+parser.add_argument('-o', '--ON', metavar='N ...',  type=int, nargs='*', help='Turn ON')
+parser.add_argument('-f', '--OFF', metavar='N ..', type=int, nargs='*', help='Turn OFF')
+parser.add_argument('--rgb', metavar='N N N', type=int, nargs='*', help='RGB colors')
 
-sense.set_imu_config(True, False, False)
-north = sense.get_compass()
-sense.set_imu_config(False,True, False)
-gyro = sense.get_gyroscope()
-sense.set_imu_config(False, False, True)
-accel = sense.get_accelerometer()
+args = parser.parse_args()
 
-broker="localhost"
+broker="test.mosquitto.org"
 port=1883
-
-#with open("Sensor_out.json", "r") as read_file:
-#    data = json.load(read_file)
-
-#print(data)
-
 
 def on_publish(client,userdata,result):
     print("data published \n")
     pass
 
-client1= paho.Client("control1")
-client1.on_publish = on_publish
+client= paho.Client("control1")
+client.on_publish = on_publish
+#client.tls_set("/home/user1/mosquitto/ca.crt", tls_version=ssl.PROTOCOL_TLSv1_2)
+#client.tls_insecure_set(True)
 #client1.will_set("sensors/pressure", payload="Offline", qos=1, retain=True)
-client1.connect(broker,port)
-ret= client1.publish("sensors/humidity",humidity, qos=1, retain=True)
-ret= client1.publish("sensors/pressure",pressure, qos=1, retain=True)
-ret= client1.publish("sensors/temperature",temperature, qos=1, retain=True)
-ret= client1.publish("sensors/compass",north, qos=1, retain=True)
-ret= client1.publish("sensors/gyroscope",gyro["yaw"], qos=1, retain=True)
-ret= client1.publish("sensors/accelerometer",accel["yaw"], qos=1, retain=True)
+client.connect(broker,port)
+client.publish("Pi/LED/Ledon",json.dumps(args.ON))
+client.publish("Pi/LED/Ledoff",json.dumps(args.OFF))
+client.publish("Pi/LED/RGB", json.dumps(args.rgb))
+
