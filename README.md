@@ -1,5 +1,5 @@
 # RaspberryPie
-Raspberry Pie Projects
+Simple RaspberryPie scripts 
 
 ## Installation
 
